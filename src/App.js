@@ -3,6 +3,7 @@ import shortid from 'shortid';
 import ContactList from './components/ContactList/ContactList';
 import Filter from './components/Filter/Filter';
 import Section from "./components/Section/Section";
+import ContactForm from "./components/ContactForm/ContactForm";
 
 
 class App extends Component {
@@ -17,13 +18,23 @@ class App extends Component {
     filter: '',
   };
   
-  // addContact = (name, number) => {
-  //   const newContact = {
-  //     id: shortid.generate(),
-  //     name,
-  //     number,
-  //   };
-  // };
+  addContact = (name, number) => {
+    const newContact = {
+      id: shortid.generate(),
+      name,
+      number,
+    };
+    const { contacts } = this.state;
+    const includesContact = contacts.find(
+      (contact) => contact.name === newContact.name
+    );
+
+    includesContact
+      ? alert(`${includesContact.name} is already in contacts`)
+      : this.setState(({ contacts }) => ({
+          contacts: [...contacts,newContact],
+        }));
+  };
 
   changeFilter = (e) => {
     this.setState({ filter: e.currentTarget.value });
@@ -45,22 +56,13 @@ class App extends Component {
   };
 
   render() {
-    const { contacts } = this.state;
     const { filter } = this.state;
 
     return (
         <div>
           <Section title="Phonebook">
-              {/* <ContactForm onSubmit={this.addContact} /> */}
+              <ContactForm onSubmit={this.addContact} />
           </Section>
-              <input
-              type="text"
-              name="name"
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
-              required
-              />
-              <button>Add contact</button>
           <Section title="Contacts">
             <Filter value={filter} onChange={this.changeFilter} />
             <ContactList
