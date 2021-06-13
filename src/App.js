@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import shortid from 'shortid';
 import ContactList from './components/ContactList/ContactList';
 import Filter from './components/Filter/Filter';
+import Section from "./components/Section/Section";
 
 
 class App extends Component {
@@ -47,30 +48,27 @@ class App extends Component {
     const { contacts } = this.state;
     const { filter } = this.state;
 
-    // addContact=(contactId)=>{
-    //   this.setState(prevState => ({
-    //     contacts:prevState.contacts.push(contact=>)
-    //   }))
-    // }
-
     return (
-        <>
-        <h1>Phonebook</h1>
-            <input
-            type="text"
-            name="name"
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
-            required
-        />
-            <button>Add contact</button>
-        <h1>Contacts</h1>
-        <Filter value={filter} onChange={this.changeFilter} />
-        <ContactList
-          contacts={this.visibleContacts()}
-          onDeleteContact={this.deleteContact}
-        />
-        </>
+        <div>
+          <Section title="Phonebook">
+              {/* <ContactForm onSubmit={this.addContact} /> */}
+          </Section>
+              <input
+              type="text"
+              name="name"
+              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+              title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
+              required
+              />
+              <button>Add contact</button>
+          <Section title="Contacts">
+            <Filter value={filter} onChange={this.changeFilter} />
+            <ContactList
+              contacts={this.visibleContacts()}
+              onDeleteContact={this.deleteContact}
+          />
+          </Section>
+        </div>
         );
     }
 }

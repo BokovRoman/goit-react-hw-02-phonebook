@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from "prop-types";
+import styles from './ContactList.module.css';
 
 
 const ContactList = ({contacts, onDeleteContact}) => {
@@ -8,7 +9,7 @@ const ContactList = ({contacts, onDeleteContact}) => {
             {contacts.map(({id,name,number})=> (
                     <li key={id}>
                     <p>{name}: {number}</p>
-                    <button className="button" type="button"
+                    <button className={styles.button} type="button"
                     onClick={() => onDeleteContact(id)}>Delete</button>
                     </li>
             ))}
